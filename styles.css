@@ -1,0 +1,10 @@
+* {
+    background-color: #E7F1F1;
+}
+
+.color-box {
+    width: 100px;
+    height: 100px;
+    border: 1px solid black
+}
+
