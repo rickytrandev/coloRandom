@@ -25,7 +25,10 @@ main {
 .color-box {
     width: 100px;
     height: 100px;
-    border: 3px solid black
+    border: 3px solid black;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
 }
 
 .btn {
@@ -39,19 +42,32 @@ main {
     border-radius: 0px 50px ;
 }
 
-#color-one {
+.color-one {
     background-color: #EA9999;
 }
-#color-two {
+.color-two {
     background-color: #FACB9C;
 }
-#color-three {
+.color-three {
     background-color: #FFE59A;
 }
-#color-four {
+.color-four {
     background-color: #B6D7A8;
 }
-#color-five {
+.color-five {
     background-color: #A4C4CA;
+}
+
+
+.hidden {
+    display: none;
+}
+
+.lock-icon {
+    width:20px;
+    height:20px;
+    background-color: transparent;
+    color: black;
+    margin: 5px
 }
 
