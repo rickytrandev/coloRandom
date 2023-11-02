@@ -1,141 +1,87 @@
 var colorOne = document.querySelector(".color-one");
-var colorTwo =  document.querySelector(".color-two");
+var colorTwo = document.querySelector(".color-two");
 var colorThree = document.querySelector(".color-three");
 var colorFour = document.querySelector(".color-four");
 var colorFive = document.querySelector(".color-five");
+var colorBox = document.querySelectorAll('.color-box')
 var btn = document.querySelector("#new-palette");
 var pHex = document.querySelectorAll(".hex");
-var colorsContainer = document.querySelector(".all-colors-container")
+var colorsContainer = document.querySelector(".all-colors-container");
+var lockable = document.querySelectorAll(".lock-icon");
 
-var currentColorPalette;
+var currentColorPalette = [];
 
-btn.addEventListener('click', renderPalettes);
-window.addEventListener('load', renderPalettes);
-colorsContainer.addEventListener('click', (event) => {
-  lockInColor(event)
+btn.addEventListener("click", renderPalettes);
+window.addEventListener("load", renderPalettes);
+colorsContainer.addEventListener("click", (e) => {
+  lockInColor(e);
+  setLockedProperty(e);
+  console.log(currentColorPalette);
 });
 
-
-function createColorPallete(){
-    currentColorPalette = [];
-    for( i = 0; i < 5; i++){
-        
-    currentColorPalette.push(createHexCode())
-    }
-    return currentColorPalette
+function createColorPallete() {
+  for (i = 0; i < 5; i++) {
+    currentColorPalette.push(createHexCode(generateHex()));
   }
-  
-console.log(createColorPallete())
-  
+  return currentColorPalette;
+}
+
 function createHexCode(hexCode) {
-  var hexCode = generateHex();
-  return { text: hexCode, id: currentColorPalette.length, locked: false}
+  return { text: hexCode, id: currentColorPalette.length, locked: false };
 }
 
-// if locked = true 
-// get index of that color
-// create a new Array
-// array[i] = locked color
+function generateHex() {
+  var colorHex = [
+    "A", "B", "C", "D", "E", "F", "0", "1",
+    "2", "3", "4", "5", "6", "7", "8", "9",
+  ];
+  var hex = "#";
+  for (var i = 0; i < 6; i++) {
+    var arrayValue = colorHex[Math.floor(Math.random() * colorHex.length)];
+    hex += arrayValue;
+  }
+  return hex;
+}
 
-function generateHex(){
-    var colorHex = ['A', 'B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-    var hex = '#';
-      for (var i = 0; i < 6; i++) {
-      var arrayValue = colorHex[Math.floor(Math.random() * colorHex.length)]
-        hex += arrayValue;
-      }
+function hexHtml(currentColorPalette) {
+  for (i = 0; i < currentColorPalette.length; i++) {
+    pHex[i].innerText = currentColorPalette[i].text;
+  }
+}
 
-      return hex;
+function renderPalettes() {
+  createColorPallete();
+  for (var i = 0; i < 5; i++) {
+    colorBox[i].style.backgroundColor = currentColorPalette[i].text;
+    hexHtml(currentColorPalette)
+  }
+}
+
+function lockInColor(e) {
+  for (var i = 0; i < lockable.length; i++) {
+    if (lockable[i].id === e.target.id) {
+      toggleLockIcon(lockable[i]);
     }
-    
-function hexHtml(currentColorPalette){
-    for (i = 0; i < 5; i++){
-        pHex[i].innerText = currentColorPalette[i].text;
-    }
-}
-function renderPalettes(){
-  createColorPallete()
-  colorOne.style.backgroundColor = currentColorPalette[0].text;
-  colorTwo.style.backgroundColor = currentColorPalette[1].text;
-  colorThree.style.backgroundColor = currentColorPalette[2].text;
-  colorFour.style.backgroundColor = currentColorPalette[3].text;
-  colorFive.style.backgroundColor = currentColorPalette[4].text;
-  hexHtml(currentColorPalette);
+  }
 }
 
-function lockInColor(event){
-  var lockable = document.querySelectorAll('.lock-icon');
-  // console.log(event.target.classList);
+function toggleLockIcon(element) {
+  if (element.classList.contains("hidden")) {
+    element.classList.remove("hidden");
+  } else {
+    element.classList.add("hidden");
+  }
+}
+
+function setLockedProperty(e) {
   for (var i = 0; i < currentColorPalette.length; i++) {
-    if (Number(event.target.parentElement.id) === currentColorPalette[i].id) {
-      for (var i = 0; i < lockable.length; i++) {
-        if (lockable.classList.contains('hidden')) {
-          lockable.classList.remove('hidden');
-        } else {
-          lockable.target.classList.add('hidden');
-        }
+    if (currentColorPalette[i].id === Number(e.target.id)) {
+      if (currentColorPalette[i].locked === false) {
+        currentColorPalette[i].locked = true;
+      } else {
+        currentColorPalette[i].locked = false;
       }
-      
-      
-      // console.log('this works')
-      // document.getElementById('')
-      // console.log(event.target.classList);
-      // lockable.classList.toggle( '.hidden');
-      // toggled(lockable);
     }
+  }
+  return currentColorPalette;
 }
-}
-
-
-//  function lockInColor(event) {
-//   var lockable = document.querySelectorAll('.lock-icon');
-//   for (var i = 0; i < lockable.length; i++){
-//     if (event.target.classList.closest('lock-icon') == currentColorPalette[i].id) {
-//       if (lockable[i].classList.contains('hidden')) {
-//         lockable[i].classList.remove('hidden');
-//       } else {
-//         lockable[i].classList.add('hidden');
-//       }
-//     }
-//   }
-// }
-
-
-
-
-// var lockable = document.querySelectorAll('.lock-icon');
-
-
-// function toggled(array){
-//   if (Element.target.contains('hidden')) {
-//     this.remove('hidden');
-//   } else {
-//     this.add('hidden');
-//   }
-
-  // var locked = document.querySelector('#locked');
-  // var unlocked = document.querySelector('#unlocked');
-  
-  // locked.classList.toggle('hidden');
-  // unlocked.classList.toggle('hidden');
-  // }
- // function toggled(element){
-
-
-
-
-
-
-// var colorsContainer = document.querySelector(".all-colors-container")
-// var lockable = document.querySelectorAll('.lock-icon');
-
-/*for (var i = 0; i < colorsContainer.length; i++) {
-  //colorsContainer[i].addEventListener('click', somefunction()) {
-    var =
-    var =
-    var =
-    var =
-    var =
-  } 
-
-*/
