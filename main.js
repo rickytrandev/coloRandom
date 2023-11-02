@@ -1,14 +1,14 @@
 var colorOne = document.querySelector(".color-one");
-var colorTwo =  document.querySelector(".color-two");
+var colorTwo = document.querySelector(".color-two");
 var colorThree = document.querySelector(".color-three");
 var colorFour = document.querySelector(".color-four");
 var colorFive = document.querySelector(".color-five");
+var colorBox = document.querySelectorAll('.color-box')
 var btn = document.querySelector("#new-palette");
 var pHex = document.querySelectorAll(".hex");
 var colorsContainer = document.querySelector(".all-colors-container")
 var colorBoxes = document.querySelectorAll('.color-box')
 var currentColorPalette = [];
-
 
 btn.addEventListener('click', renderPalettes);
 window.addEventListener('load', () => {
@@ -53,8 +53,6 @@ function generateHex(){
 function hexHtml(currentColorPalette){
     for (i = 0; i < 5; i++){
         pHex[i].innerText = currentColorPalette[i].text;
-    }
-}
 
 function renderPalettes(){
   for (var i = 0; i < currentColorPalette.length; i++) {
