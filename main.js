@@ -6,26 +6,38 @@ var colorFive = document.querySelector(".color-five");
 var btn = document.querySelector("#new-palette");
 var pHex = document.querySelectorAll(".hex");
 var colorsContainer = document.querySelector(".all-colors-container")
-var currentColorPalette;
+var colorBoxes = document.querySelectorAll('.color-box')
+var currentColorPalette = [];
 
 
 btn.addEventListener('click', renderPalettes);
-window.addEventListener('load', renderPalettes);
+window.addEventListener('load', () => {
+  createColorPalette()
+  displayPalette()
+});
 colorsContainer.addEventListener('click', (event) => {
   lockInColor(event)
 });
 
-function createColorPallete(){
-  currentColorPalette = [];
-  for(i = 0; i < 5; i++) { 
+function displayPalette() {
+  for (var i = 0; i < 5; i++) {
+    colorBoxes[i].style.backgroundColor = currentColorPalette[i].text
+    pHex[i].innerText = currentColorPalette[i].text
+  }
+}
+
+function createColorPalette() {
+  for (var i = 0; i < 5; i++) {
     currentColorPalette.push(createHexCode())
   }
-    return currentColorPalette
-  }
+}
   
 function createHexCode(hexCode) {
   var hexCode = generateHex();
-  return { text: hexCode, id: currentColorPalette.length, locked: false}
+  return {
+    text: hexCode, 
+    id: currentColorPalette.length, 
+    locked: false }
 }
 
 function generateHex(){
@@ -45,16 +57,20 @@ function hexHtml(currentColorPalette){
 }
 
 function renderPalettes(){
-  createColorPallete()
-  colorOne.style.backgroundColor = currentColorPalette[0].text;
-  colorTwo.style.backgroundColor = currentColorPalette[1].text;
-  colorThree.style.backgroundColor = currentColorPalette[2].text;
-  colorFour.style.backgroundColor = currentColorPalette[3].text;
-  colorFive.style.backgroundColor = currentColorPalette[4].text;
-  hexHtml(currentColorPalette);
+  for (var i = 0; i < currentColorPalette.length; i++) {
+    if (!currentColorPalette[i].locked) {
+      // console.log('index:', i);
+      var newColor = createHexCode()
+      // console.log(newColor);
+      currentColorPalette[i] = newColor
+      currentColorPalette[i].id = i
+    }
+  }
+  displayPalette();
 }
 
 function lockInColor(event) {
+
   for (var i = 0; i < currentColorPalette.length; i++) {
     if (currentColorPalette[i].id == event.target.parentElement.id) {
       var indexToString = i.toString()
@@ -68,65 +84,11 @@ function lockInColor(event) {
       }
     }
   }
-  for(i = 0; i < queryLockIcon.length; i++) {
-    if (queryLockIcon[i].classList.contains('hidden')) {
-      queryLockIcon[i].classList.remove('hidden')
-    } else {
+  for(i = 0; i < 2; i++) {
+    if (!queryLockIcon[i].classList.contains('hidden')) {
       queryLockIcon[i].classList.add('hidden')
+    } else {
+      queryLockIcon[i].classList.remove('hidden')
     }
   }
-  console.log(currentColorPalette);
 }
-
-//  function lockInColor(event) {
-//   var lockable = document.querySelectorAll('.lock-icon');
-//   for (var i = 0; i < lockable.length; i++){
-//     if (event.target.classList.closest('lock-icon') == currentColorPalette[i].id) {
-//       if (lockable[i].classList.contains('hidden')) {
-//         lockable[i].classList.remove('hidden');
-//       } else {
-//         lockable[i].classList.add('hidden');
-//       }
-//     }
-//   }
-// }
-
-
-
-
-// var lockable = document.querySelectorAll('.lock-icon');
-
-
-// function toggled(array){
-//   if (Element.target.contains('hidden')) {
-//     this.remove('hidden');
-//   } else {
-//     this.add('hidden');
-//   }
-
-  // var locked = document.querySelector('#locked');
-  // var unlocked = document.querySelector('#unlocked');
-  
-  // locked.classList.toggle('hidden');
-  // unlocked.classList.toggle('hidden');
-  // }
- // function toggled(element){
-
-
-
-
-
-
-// var colorsContainer = document.querySelector(".all-colors-container")
-// var lockable = document.querySelectorAll('.lock-icon');
-
-/*for (var i = 0; i < colorsContainer.length; i++) {
-  //colorsContainer[i].addEventListener('click', somefunction()) {
-    var =
-    var =
-    var =
-    var =
-    var =
-  } 
-
-*/
