@@ -8,18 +8,18 @@ var pHex = document.querySelectorAll(".hex");
 var colorsContainer = document.querySelector(".all-colors-container")
 var currentColorPalette;
 
+
 btn.addEventListener('click', renderPalettes);
 window.addEventListener('load', renderPalettes);
 colorsContainer.addEventListener('click', (event) => {
   lockInColor(event)
 });
 
-
 function createColorPallete(){
-    currentColorPalette = [];
-    for(i = 0; i < 5; i++) { 
-      currentColorPalette.push(createHexCode())
-    }
+  currentColorPalette = [];
+  for(i = 0; i < 5; i++) { 
+    currentColorPalette.push(createHexCode())
+  }
     return currentColorPalette
   }
   
@@ -43,6 +43,7 @@ function hexHtml(currentColorPalette){
         pHex[i].innerText = currentColorPalette[i].text;
     }
 }
+
 function renderPalettes(){
   createColorPallete()
   colorOne.style.backgroundColor = currentColorPalette[0].text;
@@ -55,10 +56,16 @@ function renderPalettes(){
 
 function lockInColor(event) {
   for (var i = 0; i < currentColorPalette.length; i++) {
-    if (currentColorPalette[i].id == event.target.id) {
-      var idToString = i.toString()
-      var queryBox = document.getElementById(idToString)
+    if (currentColorPalette[i].id == event.target.parentElement.id) {
+      var indexToString = i.toString()
+      var queryBox = document.getElementById(indexToString)
       var queryLockIcon = queryBox.querySelectorAll('.lock-icon');
+
+      if (!currentColorPalette[i].locked) {
+        currentColorPalette[i].locked = true
+      } else {
+        currentColorPalette[i].locked = false
+      }
     }
   }
   for(i = 0; i < queryLockIcon.length; i++) {
@@ -68,6 +75,7 @@ function lockInColor(event) {
       queryLockIcon[i].classList.add('hidden')
     }
   }
+  console.log(currentColorPalette);
 }
 
 //  function lockInColor(event) {
