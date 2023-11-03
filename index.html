@@ -10,10 +10,10 @@
 </head>
 <body>
     <main>
+        <header class="header">
+            <h1 class="title">COLORANDOM</h1>
+        </header>
         <div class="main-section">
-            <header class="header">
-                <h1 class="title">COLORANDOM</h1>
-            </header>
             <section class="all-colors-container">
                 <div class="color-container">
                     <div class="color-box color-one" id="0">
@@ -56,12 +56,12 @@
                 <button id="save-palette" class="btn">Save Palette</button>
             </section>
         </div>
+        <section class="saved-palettes">
+            <h2>Saved Palettes</h2>
+            <div id="saved-palettes-message">No saved palettes yet!</div>
+            <div id="saved-palettes-container"></div>
+        </section>
     </main>
-    <section class="saved-palettes">
-        <h2>Saved Palettes</h2>
-        <div id="saved-palettes-message">No saved palettes yet!</div>
-        <div id="saved-palettes-container"></div>
-    </section>
     <script type="text/javascript" src="main.js"></script>
 </body>
 </html>
