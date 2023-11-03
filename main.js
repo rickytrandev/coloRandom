@@ -12,9 +12,11 @@ var currentColorPalette = [];
 var saveButton = document.querySelector("#save-palette");
 var savedPalettesContainer = document.querySelector("#saved-palettes-container");
 var savedPalettesMessage = document.querySelector("#saved-palettes-message");
+var savedSection = document.querySelector(".saved-palettes")
+var savedPalettesArray = [];
 
 saveButton.addEventListener('click', savePalette);
-
+savedSection.addEventListener('click', deletePalette)
 btn.addEventListener('click', renderPalettes);
 window.addEventListener('load', () => {
   createColorPalette()
@@ -95,28 +97,61 @@ function lockInColor(event) {
   }
 }
 
+var savedPalettesArray = [];
 
 function savePalette(){
   var savedPalette = currentColorPalette.slice();
-  renderSavedPalette(savedPalette);
+  savedPalettesArray.push(renderSavedPalette(savedPalette));
+  
 }
 
 //rendering the saved palette
 function renderSavedPalette(savedPalette) {
   var paletteContainer = document.createElement("div");
+  var deleteSavedPalette = document.createElement('img');
   paletteContainer.classList.add("saved-palette");
 
   for (var i = 0; i < savedPalette.length; i++) {
     var savedColor = document.createElement("div");
     savedColor.classList.add("saved-color-box");
     savedColor.style.backgroundColor = savedPalette[i].text;
-
+    deleteSavedPalette.src = 'assets/delete.png'
+    deleteSavedPalette.classList.add('delete-btn')
+    deleteSavedPalette.id = Date.now();
     paletteContainer.appendChild(savedColor);
+    paletteContainer.appendChild(deleteSavedPalette)
   }
 
-savedPalettesContainer.appendChild(paletteContainer);
+  savedPalettesContainer.appendChild(paletteContainer);
 
-savedPalettesContainer.style.display = "block";
-savedPalettesMessage.style.display = "none";
-renderPalettes()
+  savedPalettesContainer.style.display = "block";
+  savedPalettesMessage.style.display = "none";
+  renderPalettes()
+  return savedPalette;
 }
+
+
+
+function deletePalette(event){
+  
+  for(i = 0; i < savedPalettesArray.length; i++){
+    if (event.target.id === savedPalettesArray[i].id) {
+      savedPalettesArray.splice(i, 1);
+      event.target.parentElement.remove();
+      
+      console.log("hi");
+    }
+  }
+  
+}
+
+
+/* function deletePalette(event) {
+  if (event.target.classList.contains('delete-btn')) {
+    var paletteId = event.target.id;
+    
+  }
+}
+
+
+*/
