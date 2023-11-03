@@ -118,4 +118,5 @@ savedPalettesContainer.appendChild(paletteContainer);
 
 savedPalettesContainer.style.display = "block";
 savedPalettesMessage.style.display = "none";
+renderPalettes()
 }
