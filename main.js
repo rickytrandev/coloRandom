@@ -6,9 +6,14 @@ var colorFive = document.querySelector(".color-five");
 var colorBox = document.querySelectorAll('.color-box')
 var btn = document.querySelector("#new-palette");
 var pHex = document.querySelectorAll(".hex");
-var colorsContainer = document.querySelector(".all-colors-container")
-var colorBoxes = document.querySelectorAll('.color-box')
+var colorsContainer = document.querySelector(".all-colors-container");
+var colorBoxes = document.querySelectorAll('.color-box');
 var currentColorPalette = [];
+var saveButton = document.querySelector("#save-palette");
+var savedPalettesContainer = document.querySelector("#saved-palettes-container");
+var savedPalettesMessage = document.querySelector("#saved-palettes-message");
+
+saveButton.addEventListener('click', savePalette);
 
 btn.addEventListener('click', renderPalettes);
 window.addEventListener('load', () => {
@@ -48,12 +53,11 @@ function generateHex(){
         hex += arrayValue;
       }
       return hex;
-    }
-    
+    }  
 function hexHtml(currentColorPalette){
     for (i = 0; i < 5; i++){
         pHex[i].innerText = currentColorPalette[i].text;
-
+    }}
 function renderPalettes(){
   for (var i = 0; i < currentColorPalette.length; i++) {
     if (!currentColorPalette[i].locked) {
@@ -89,4 +93,29 @@ function lockInColor(event) {
       queryLockIcon[i].classList.remove('hidden')
     }
   }
+}
+
+
+function savePalette(){
+  var savedPalette = currentColorPalette.slice();
+  renderSavedPalette(savedPalette);
+}
+
+//rendering the saved palette
+function renderSavedPalette(savedPalette) {
+  var paletteContainer = document.createElement("div");
+  paletteContainer.classList.add("saved-palette");
+
+  for (var i = 0; i < savedPalette.length; i++) {
+    var savedColor = document.createElement("div");
+    savedColor.classList.add("saved-color-box");
+    savedColor.style.backgroundColor = savedPalette[i].text;
+
+    paletteContainer.appendChild(savedColor);
+  }
+
+savedPalettesContainer.appendChild(paletteContainer);
+
+savedPalettesContainer.style.display = "block";
+savedPalettesMessage.style.display = "none";
 }
