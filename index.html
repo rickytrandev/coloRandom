@@ -9,51 +9,59 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1 class="title">COLORANDOM</h1>
-    </header>
     <main>
-        <section class="all-colors-container">
-            <div class="color-container">
-                <div class="color-box color-one" id="0">
-                    <img class = "lock-icon hidden" id="0" src="assets/locked.png" alt = "Locked" >
-                    <img class = "lock-icon" id="0" src="assets/unlocked.png" alt = "Unlocked">
-                </div>    
-                <p class="hex"></p>
-            </div>
-            <div class="color-container">
-                <div class="color-box color-two" id="1">
-                    <img class = "lock-icon hidden" id="1" src="assets/locked.png" alt = "Locked">
-                    <img class = "lock-icon" id="1" src="assets/unlocked.png" alt = "Unlocked">
+        <div class="main-section">
+            <header class="header">
+                <h1 class="title">COLORANDOM</h1>
+            </header>
+            <section class="all-colors-container">
+                <div class="color-container">
+                    <div class="color-box color-one" id="0">
+                        <img class = "lock-icon hidden" id="0" src="assets/locked.png" alt = "Locked" >
+                        <img class = "lock-icon" id="0" src="assets/unlocked.png" alt = "Unlocked">
+                    </div>    
+                    <p class="hex"></p>
                 </div>
-                <p class="hex"></p>
-            </div>
-            <div class="color-container">
-                <div class="color-box color-three" id="2">
-                    <img class = "lock-icon hidden" id="2" src="assets/locked.png" alt = "Locked">
-                    <img class = "lock-icon" id="2" src="assets/unlocked.png" alt = "Unlocked">
+                <div class="color-container">
+                    <div class="color-box color-two" id="1">
+                        <img class = "lock-icon hidden" id="1" src="assets/locked.png" alt = "Locked">
+                        <img class = "lock-icon" id="1" src="assets/unlocked.png" alt = "Unlocked">
+                    </div>
+                    <p class="hex"></p>
                 </div>
-                <p class="hex"></p>
-            </div>
-            <div class="color-container">
-                <div class="color-box color-four" id="3">
-                    <img class = "lock-icon hidden" id="3" src="assets/locked.png" alt = "Locked">
-                    <img class = "lock-icon" id="3" src="assets/unlocked.png" alt = "Unlocked">
+                <div class="color-container">
+                    <div class="color-box color-three" id="2">
+                        <img class = "lock-icon hidden" id="2" src="assets/locked.png" alt = "Locked">
+                        <img class = "lock-icon" id="2" src="assets/unlocked.png" alt = "Unlocked">
+                    </div>
+                    <p class="hex"></p>
                 </div>
-                <p class="hex"></p>
-            </div>
-            <div class="color-container">
-                <div class="color-box color-five" id="4">
-                    <img class = "lock-icon hidden" id="4" src="assets/locked.png" alt = "Locked">
-                    <img class = "lock-icon" id="4" src="assets/unlocked.png" alt = "Unlocked">
+                <div class="color-container">
+                    <div class="color-box color-four" id="3">
+                        <img class = "lock-icon hidden" id="3" src="assets/locked.png" alt = "Locked">
+                        <img class = "lock-icon" id="3" src="assets/unlocked.png" alt = "Unlocked">
+                    </div>
+                    <p class="hex"></p>
                 </div>
-                <p class="hex"></p>
-            </div>
-        </section>
-        <section class="btn-container">
-            <button id="new-palette" class="btn">New Palette</button>
-        </section>
+                <div class="color-container">
+                    <div class="color-box color-five" id="4">
+                        <img class = "lock-icon hidden" id="4" src="assets/locked.png" alt = "Locked">
+                        <img class = "lock-icon" id="4" src="assets/unlocked.png" alt = "Unlocked">
+                    </div>
+                    <p class="hex"></p>
+                </div>
+            </section>
+            <section class="btn-container">
+                <button id="new-palette" class="btn">New Palette</button>
+                <button id="save-palette" class="btn">Save Palette</button>
+            </section>
+        </div>
     </main>
+    <section class="saved-palettes">
+        <h2>Saved Palettes</h2>
+        <div id="saved-palettes-message">No saved palettes yet!</div>
+        <div id="saved-palettes-container"></div>
+    </section>
     <script type="text/javascript" src="main.js"></script>
 </body>
 </html>
