@@ -8,13 +8,18 @@ var btn = document.querySelector("#new-palette");
 var pHex = document.querySelectorAll(".hex");
 var colorsContainer = document.querySelector(".all-colors-container");
 var colorBoxes = document.querySelectorAll('.color-box');
-var currentColorPalette = [];
 var saveButton = document.querySelector("#save-palette");
 var savedPalettesContainer = document.querySelector("#saved-palettes-container");
 var savedPalettesMessage = document.querySelector("#saved-palettes-message");
+var savedSection = document.querySelector(".saved-palettes")
+var miniPalettesContainer = document.querySelector('.mini-palettes-container')
+var currentColorPalette = [];
+var savedPalettesArray = [];
 
 saveButton.addEventListener('click', savePalette);
-
+savedSection.addEventListener('click', (e) => {
+  deleteSavedPalette(e)
+});
 btn.addEventListener('click', renderPalettes);
 window.addEventListener('load', () => {
   createColorPalette()
@@ -42,7 +47,7 @@ function createHexCode(hexCode) {
   return {
     text: hexCode, 
     id: currentColorPalette.length, 
-    locked: false }
+    locked: false}
 }
 
 function generateHex(){
@@ -54,16 +59,17 @@ function generateHex(){
       }
       return hex;
     }  
+
 function hexHtml(currentColorPalette){
     for (i = 0; i < 5; i++){
         pHex[i].innerText = currentColorPalette[i].text;
-    }}
+    }
+  }
+
 function renderPalettes(){
   for (var i = 0; i < currentColorPalette.length; i++) {
     if (!currentColorPalette[i].locked) {
-      // console.log('index:', i);
       var newColor = createHexCode()
-      // console.log(newColor);
       currentColorPalette[i] = newColor
       currentColorPalette[i].id = i
     }
@@ -72,7 +78,6 @@ function renderPalettes(){
 }
 
 function lockInColor(event) {
-
   for (var i = 0; i < currentColorPalette.length; i++) {
     if (currentColorPalette[i].id == event.target.parentElement.id) {
       var indexToString = i.toString()
@@ -95,28 +100,98 @@ function lockInColor(event) {
   }
 }
 
+function savePalette() {
+  var palette = {}
 
-function savePalette(){
-  var savedPalette = currentColorPalette.slice();
-  renderSavedPalette(savedPalette);
-}
-
-//rendering the saved palette
-function renderSavedPalette(savedPalette) {
-  var paletteContainer = document.createElement("div");
-  paletteContainer.classList.add("saved-palette");
-
-  for (var i = 0; i < savedPalette.length; i++) {
-    var savedColor = document.createElement("div");
-    savedColor.classList.add("saved-color-box");
-    savedColor.style.backgroundColor = savedPalette[i].text;
-
-    paletteContainer.appendChild(savedColor);
+  for (i = 0; i < currentColorPalette.length; i++) {
+    palette['color' + i] = currentColorPalette[i].text
   }
-
-savedPalettesContainer.appendChild(paletteContainer);
-
-savedPalettesContainer.style.display = "block";
-savedPalettesMessage.style.display = "none";
-renderPalettes()
+  palette.id = savedPalettesArray.length;
+  savedPalettesArray.push(palette)
+  renderSavedPalettes()
+  return palette
 }
+
+function renderSavedPalettes() {
+  savedPalettesContainer.innerHTML = ''
+
+  for (var i = 0; i < savedPalettesArray.length; i++) {
+    var miniPalette = document.createElement('div')
+    var deleteBtn = document.createElement('img')
+    miniPalette.id = i;
+    savedPalettesArray[i].id = i
+    miniPalette.classList.add('mini-palette')
+    deleteBtn.id = miniPalette.id;
+    deleteBtn.classList.add('delete-btn')
+    deleteBtn.src = 'assets/delete.png'
+    
+    for (const color in savedPalettesArray[i]) {
+      if (color !== 'id') {
+        var miniBox = document.createElement('div')
+        
+        miniBox.classList.add('mini-box')
+        miniBox.style.backgroundColor = savedPalettesArray[i][color];
+        
+        miniPalette.appendChild(miniBox)
+        miniPalette.appendChild(deleteBtn)
+        
+        savedPalettesContainer.appendChild(miniPalette)
+      }
+    }
+  }
+  savedPalettesMessage.classList.add('hidden')
+}
+
+function deleteSavedPalette(e) {
+
+  if(e.target.classList.contains('delete-btn')) {
+    for (var i = 0; i < savedPalettesArray.length; i++) {
+      if (Number(e.target.id) === savedPalettesArray[i].id) {
+        console.log('target ID', e.target.id);
+        console.log('array ID', savedPalettesArray[i].id);
+        savedPalettesArray.splice(i, 1)
+      }
+    }
+  }
+  renderSavedPalettes();
+}
+
+// function renderSavedPalette(savedPalette) {
+//   // console.log(savedPalettesArray);
+//   var paletteContainer = document.createElement("div");
+//   var deletePaletteBtn = document.createElement('img');
+//   var colorBoxObj = {};
+
+//   paletteContainer.classList.add("saved-palette");
+
+//   for (var i = 0; i < savedPalette.length; i++) {
+//     var colorBox = document.createElement("div");
+
+//     deletePaletteBtn.src = 'assets/delete.png'
+//     deletePaletteBtn.classList.add('delete-btn')
+//     colorBox.classList.add("saved-color-box");
+//     colorBox.style.backgroundColor = savedPalette[i].text;
+
+//     paletteContainer.appendChild(colorBox);
+//     paletteContainer.appendChild(deletePaletteBtn)
+    
+//     colorBoxObj.contents += `${savedPalette[i].text}, `
+//     colorBoxObj.id = i
+//     console.log(colorBoxObj);
+//   }
+
+//   savedPalettesContainer.appendChild(paletteContainer);
+//   savedPalettesMessage.style.display = "none";
+//   renderPalettes()
+// }
+
+// function deletePalette(event){
+//   for(i = 0; i < savedPalettesArray.length; i++){
+//     if (event.target.id === savedPalettesArray[i].id) {
+//       savedPalettesArray.splice(i, 1);
+//       event.target.parentElement.remove();
+      
+//       console.log("hi");
+//     }
+//   }
+// }

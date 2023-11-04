@@ -107,18 +107,34 @@ header {
     font-size: 10px ;
 }
 
+#saved-palettes-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .saved-palette {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 10px;
     flex-direction: row;
-
 }
 
-.saved-color-box {
+.mini-palette{
+display: flex;
+}
+
+.mini-box {
     width: 40px;
     height: 40px;
     margin-right: 5px;
     border: 2px solid black;
+}
+
+.delete-btn{
+    margin: auto;
+    margin-left: 5px;
+    height: 30px;
+    width: 30px;
 }
