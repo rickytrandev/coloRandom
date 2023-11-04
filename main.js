@@ -27,6 +27,7 @@ window.addEventListener('load', () => {
 });
 colorsContainer.addEventListener('click', (event) => {
   lockInColor(event)
+  setLockedProperty(e)
 });
 
 function displayPalette() {
@@ -41,32 +42,36 @@ function createColorPalette() {
     currentColorPalette.push(createHexCode())
   }
 }
-  
+
 function createHexCode(hexCode) {
   var hexCode = generateHex();
   return {
-    text: hexCode, 
-    id: currentColorPalette.length, 
-    locked: false}
+    text: hexCode,
+    id: currentColorPalette.length,
+    locked: false
+  }
 }
 
-function generateHex(){
-    var colorHex = ['A', 'B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-    var hex = '#';
-      for (var i = 0; i < 6; i++) {
-      var arrayValue = colorHex[Math.floor(Math.random() * colorHex.length)]
-        hex += arrayValue;
-      }
-      return hex;
-    }  
-
-function hexHtml(currentColorPalette){
-    for (i = 0; i < 5; i++){
-        pHex[i].innerText = currentColorPalette[i].text;
-    }
+function generateHex() {
+  var colorHex = [
+    'A', 'B', 'C', 'D', 'E', 'F', '0', '1', 
+    '2', '3', '4', '5', '6', '7', '8', '9'
+  ];
+  var hex = '#';
+  for (var i = 0; i < 6; i++) {
+    var arrayValue = colorHex[Math.floor(Math.random() * colorHex.length)]
+    hex += arrayValue;
   }
+  return hex;
+}
 
-function renderPalettes(){
+function hexHtml(currentColorPalette) {
+  for (i = 0; i < 5; i++) {
+    pHex[i].innerText = currentColorPalette[i].text;
+  }
+}
+
+function renderPalettes() {
   for (var i = 0; i < currentColorPalette.length; i++) {
     if (!currentColorPalette[i].locked) {
       var newColor = createHexCode()
@@ -79,11 +84,10 @@ function renderPalettes(){
 
 function lockInColor(event) {
   for (var i = 0; i < currentColorPalette.length; i++) {
-    if (currentColorPalette[i].id == event.target.parentElement.id) {
+    if (Number(event.target.id) === currentColorPalette[i].id) {
       var indexToString = i.toString()
       var queryBox = document.getElementById(indexToString)
       var queryLockIcon = queryBox.querySelectorAll('.lock-icon');
-
       if (!currentColorPalette[i].locked) {
         currentColorPalette[i].locked = true
       } else {
@@ -91,7 +95,7 @@ function lockInColor(event) {
       }
     }
   }
-  for(i = 0; i < 2; i++) {
+  for (i = 0; i < 2; i++) {
     if (!queryLockIcon[i].classList.contains('hidden')) {
       queryLockIcon[i].classList.add('hidden')
     } else {
@@ -102,19 +106,18 @@ function lockInColor(event) {
 
 function savePalette() {
   var palette = {}
-
   for (i = 0; i < currentColorPalette.length; i++) {
     palette['color' + i] = currentColorPalette[i].text
   }
   palette.id = savedPalettesArray.length;
   savedPalettesArray.push(palette)
   renderSavedPalettes()
+  renderPalettes()
   return palette
 }
 
 function renderSavedPalettes() {
   savedPalettesContainer.innerHTML = ''
-
   for (var i = 0; i < savedPalettesArray.length; i++) {
     var miniPalette = document.createElement('div')
     var deleteBtn = document.createElement('img')
@@ -124,17 +127,14 @@ function renderSavedPalettes() {
     deleteBtn.id = miniPalette.id;
     deleteBtn.classList.add('delete-btn')
     deleteBtn.src = 'assets/delete.png'
-    
+
     for (const color in savedPalettesArray[i]) {
       if (color !== 'id') {
         var miniBox = document.createElement('div')
-        
         miniBox.classList.add('mini-box')
         miniBox.style.backgroundColor = savedPalettesArray[i][color];
-        
         miniPalette.appendChild(miniBox)
         miniPalette.appendChild(deleteBtn)
-        
         savedPalettesContainer.appendChild(miniPalette)
       }
     }
@@ -143,55 +143,12 @@ function renderSavedPalettes() {
 }
 
 function deleteSavedPalette(e) {
-
-  if(e.target.classList.contains('delete-btn')) {
+  if (e.target.classList.contains('delete-btn')) {
     for (var i = 0; i < savedPalettesArray.length; i++) {
       if (Number(e.target.id) === savedPalettesArray[i].id) {
-        console.log('target ID', e.target.id);
-        console.log('array ID', savedPalettesArray[i].id);
         savedPalettesArray.splice(i, 1)
       }
     }
   }
   renderSavedPalettes();
 }
-
-// function renderSavedPalette(savedPalette) {
-//   // console.log(savedPalettesArray);
-//   var paletteContainer = document.createElement("div");
-//   var deletePaletteBtn = document.createElement('img');
-//   var colorBoxObj = {};
-
-//   paletteContainer.classList.add("saved-palette");
-
-//   for (var i = 0; i < savedPalette.length; i++) {
-//     var colorBox = document.createElement("div");
-
-//     deletePaletteBtn.src = 'assets/delete.png'
-//     deletePaletteBtn.classList.add('delete-btn')
-//     colorBox.classList.add("saved-color-box");
-//     colorBox.style.backgroundColor = savedPalette[i].text;
-
-//     paletteContainer.appendChild(colorBox);
-//     paletteContainer.appendChild(deletePaletteBtn)
-    
-//     colorBoxObj.contents += `${savedPalette[i].text}, `
-//     colorBoxObj.id = i
-//     console.log(colorBoxObj);
-//   }
-
-//   savedPalettesContainer.appendChild(paletteContainer);
-//   savedPalettesMessage.style.display = "none";
-//   renderPalettes()
-// }
-
-// function deletePalette(event){
-//   for(i = 0; i < savedPalettesArray.length; i++){
-//     if (event.target.id === savedPalettesArray[i].id) {
-//       savedPalettesArray.splice(i, 1);
-//       event.target.parentElement.remove();
-      
-//       console.log("hi");
-//     }
-//   }
-// }
