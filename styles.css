@@ -8,10 +8,11 @@
 main {
     height: 500px;
     display: grid;
-    grid-template-areas: 
+    grid-template-areas:
         "a a c"
         "b b c";
     grid-template-rows: 1fr 2fr;
+    grid-template-columns: 1.5fr 1.5fr .5fr;
 }
 
 header {
@@ -20,7 +21,7 @@ header {
 
 .main-section {
     grid-area: b;
-} 
+}
 
 .all-colors-container {
     gap: 15px;
@@ -32,7 +33,7 @@ header {
 }
 
 .title {
-    font-weight: bolder;
+    font-weight: 700;
     font-size: 60px;
     margin: 60px;
 }
@@ -48,35 +49,20 @@ header {
 
 .btn-container {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
 }
 
 .btn {
     font-size: 20px;
-    font-weight: lighter;
+    font-weight: 200;
     width: 200px;
-    padding: 10px;
+    margin: 0 40px;
+    padding: 5px 15px;
     border: none;
     background-color: black;
     color: white;
-    border-radius: 0px 50px ;
+    border-radius: 0px 50px;
 }
-
-/* .color-one {
-    background-color: #EA9999;
-}
-.color-two {
-    background-color: #FACB9C;
-}
-.color-three {
-    background-color: #FFE59A;
-}
-.color-four {
-    background-color: #B6D7A8;
-}
-.color-five {
-    background-color: #A4C4CA;
-} */
 
 
 .hidden {
@@ -84,8 +70,8 @@ header {
 }
 
 .lock-icon {
-    width:20px;
-    height:20px;
+    width: 20px;
+    height: 20px;
     background-color: transparent;
     color: black;
     margin: 5px;
@@ -93,6 +79,7 @@ header {
 
 .saved-palettes {
     height: 100vh;
+    width: 360px;
     grid-area: c;
     display: flex;
     flex-direction: column;
@@ -104,7 +91,7 @@ header {
 
 
 .saved-palettes-message {
-    font-size: 10px ;
+    font-size: 10px;
 }
 
 #saved-palettes-container {
@@ -121,8 +108,8 @@ header {
     flex-direction: row;
 }
 
-.mini-palette{
-display: flex;
+.mini-palette {
+    display: flex;
 }
 
 .mini-box {
@@ -132,7 +119,7 @@ display: flex;
     border: 2px solid black;
 }
 
-.delete-btn{
+.delete-btn {
     margin: auto;
     margin-left: 5px;
     height: 30px;
