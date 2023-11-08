@@ -14,7 +14,8 @@ A user can clone the repo down to their local machine and open index.html to vie
 
 ### Preview of App
 
-https://github.com/rickytrandev/coloRandom/assets/105529508/ab57fc64-ac3b-430e-884e-5e50766359d2
+https://github.com/rickytrandev/coloRandom/assets/105529508/f64072c7-92a4-4108-8aab-9d92f709755a
+
 
 
 
