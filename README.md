@@ -1,7 +1,7 @@
 # README
 
 
-# COLORANDOM
+# ColoRandom
 
 
 ### Abstract
@@ -9,7 +9,7 @@ Designers often face creative blocks when trying to come up with new color schem
 
 
 ### Installation Instructions
-Using the provided link to the Github repo, an user can clone and pull the repo down to their local machine using the terminal. Once cloned down, users can navigate to the coloRandom directory and run 'open index.html' to open the webpage.
+A user can clone the repo down to their local machine and open index.html to view the app.
 
 
 ### Preview of App
