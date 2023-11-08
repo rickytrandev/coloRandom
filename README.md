@@ -13,7 +13,10 @@ A user can clone the repo down to their local machine and open index.html to vie
 
 
 ### Preview of App
-![alt text](image.jpg)
+
+https://github.com/rickytrandev/coloRandom/assets/105529508/ab57fc64-ac3b-430e-884e-5e50766359d2
+
+
 
 
 ### Context
